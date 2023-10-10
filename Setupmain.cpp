@@ -1,8 +1,6 @@
 //Names: Alexis Martinez, Angie Campos, Neidy Malaga, & Vivian Huynh
 //Date: 10/4/2023
 //Description: Chapter 6 Assignments: Software Development with Templates, Iterators, and the STL
-#include "TemplateBag.cpp"
-
 #include <iostream> //For cout
 #include <vector>   //For vector
 #include <fstream>  //For files
