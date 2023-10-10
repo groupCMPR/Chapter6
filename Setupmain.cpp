@@ -1,6 +1,7 @@
 //Names: Alexis Martinez, Angie Campos, Neidy Malaga, & Vivian Huynh
 //Date: 10/4/2023
 //Description: Chapter 6 Assignments: Software Development with Templates, Iterators, and the STL
+#include "TemplateBag.cpp"
 
 #include <iostream> //For cout
 #include <vector>   //For vector
@@ -10,6 +11,7 @@
 //HEADER FILES
 #include "input.h" //For input validation
 #include "TemplateBag.h"
+//#include "TemplateBag.cpp"
 using namespace std;
 
 
@@ -132,7 +134,7 @@ void option2()
 			}
 
 			double user_Value = (inputDouble("\n\tEnter a value to search from MyBag: ")) * 1.00;
-			int position = bag2.get_Search(user_Value);
+			size_t position = bag2.get_Search(user_Value);
 
 			//if not found, it will be a -1, else prints where it was found
 			if (position == -1)
@@ -168,7 +170,7 @@ void option2()
 				break;
 			}
 
-			cout << "\n\tMybag contains these integers:" << bag2;
+			cout << "\n\tMyBag contains these integers:" << bag2;
 		} break;
 		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
 		}
@@ -180,7 +182,6 @@ void option2()
 
 void option3()
 {
-	int numberCourse = 0;
 	do
 	{
 		cout << "\n\t2> Courses using MyBags of integers, strings, doubles, and chars";
@@ -197,67 +198,11 @@ void option3()
 		switch (inputInteger("\n\t\tOption: ", 0, 5))
 		{
 		case 0: return;
-		case 1: {
-			numberCourse = inputInteger("\n\t1> Enter the number of courses: ", 1, true);
-			cout << "\n\t" << numberCourse << " Course(s) has been created.\n";
-		}break;
-		case 2: {
-
-			if (numberCourse <= 0)
-			{
-				cout << "\n\tERROR: number of courses has not been assigned.\n";
-				break;
-			}
-			
-			string fileName = "";
-			fileName = inputString("\n\t2> Enter a data file name for course[0] (STOP - return): ", false);
-
-			if (toupper(fileName == "STOP"))
-			{
-				break;
-			}
-
-			fstream inputFile;
-			inputFile.open(fileName);
-			
-			while (!inputFile.eof())
-			{
-				cout << "\n\tfile, " << fileName << ", cannot be found. Please re-specify.\n";
-				break;
-			}
-
-			inputFile.close();
-		}break;
-		case 3: {
-			//ERROR: No data file has been read and stored into Courses.
-			cout << "\n\t\t3> Search by";
-			cout << "\n\t\t" << string(30, char(196));
-			cout << "\n\t\t\t1. ID Number";
-			cout << "\n\t\t\t2. Name";
-			cout << "\n\t\t\t0. return";
-			cout << "\n\t\t" << string(30, char(196));
-
-			switch (inputInteger("\n\t\t\tOption: ", 0, 2))
-			{
-			case 0: break;
-			case 1: {
-				cout << "\n\tEnter a student ID to search: ";
-			}break;
-			case 2: {
-				cout << "\n\tEnter a student name to search: ";
-			}break;
-			default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
-			}
-		}break;
-		case 4: {
-			//ERROR: No data file has been read and stored into Courses.
-
-
-		}break;
-		case 5: {
-			//ERROR: No data file has been read and stored into Courses.
-			
-		}break;
+		case 1: break;
+		case 2: break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
 		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
 		}
 		cout << "\n";
