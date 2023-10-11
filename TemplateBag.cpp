@@ -45,7 +45,7 @@ void MyBag<value_vector, value>::set_Remove(const value& index) {
 
 //precondition : filled vector
 //postcondition: sorts elements 
-template <typename value_vector, typename value>
+template <class value_vector, class value>
 void MyBag<value_vector, value>::set_Sort() {
 	sort(bag.begin(), bag.end());
 }
@@ -68,7 +68,7 @@ void MyBag<value_vector, value>::set_Resize(const value& newSize) {
 //precondition : N/A
 //postcondition: returns bag_size
 template <typename value_vector, typename value>
-value MyBag<value_vector, value>::get_Size() {
+value MyBag<value_vector, value>::get_Size() const{
 	return bag_size;
 }
 
@@ -76,7 +76,7 @@ value MyBag<value_vector, value>::get_Size() {
 //postcondition: returns bag_capacity
 //Notice: used to control how many elements can be inserted
 template <typename value_vector, typename value>
-value MyBag<value_vector, value>::get_Capacity() {
+value MyBag<value_vector, value>::get_Capacity() const {
 	return bag_capacity;
 }
 
@@ -91,6 +91,12 @@ value MyBag<value_vector, value>::get_Search(const value_vector& newValue) const
 	return -1;
 }
 
+template <typename value_vector, typename value>
+bool  MyBag<value_vector, value>::get_Empty() const{
+	return bag.empty();
+}
+
+
 //precondition : filled vector
 //postcondition: returns pointer at index
 template <typename value_vector, typename value>
@@ -99,16 +105,4 @@ typename vector<value_vector>::const_iterator MyBag<value_vector, value>::get_Va
 	return ptr;
 }
 
-//================================================
-//				Friend
-//================================================
-
-//precondition : filled vector, outsream, class object
-//postcondition: returns outsream
-template <typename T, typename Y>
-ostream& operator<<(ostream& out, const MyBag<T,Y>& obj) {
-	for (int i = 0; i < obj.bag_size; ++i)
-		out << "\n\t[" << i << "] - " << obj.bag.at(i);
-
-	return out;
-}
+template class MyBag<double, size_t>;
