@@ -5,7 +5,8 @@
 #pragma once
 #include <vector>    //For vector
 #include <iostream>  //For overloading <<
-#include <algorithm> //For find, search, sort
+#include <algorithm> //For sort
+
 using namespace std;
 
 template <typename value_vector, typename value>
@@ -29,12 +30,19 @@ public:
 	void set_Resize(const value&);
 
 	//Accessors
-	value get_Size();
-	value get_Capacity();
+	value get_Size() const;
+	value get_Capacity() const;
 	value get_Search(const value_vector&) const;
+	bool get_Empty() const;
 	typename vector<value_vector>::const_iterator get_Value(const value&) const;
 
 	//Friend
-	template <typename T, typename Y>
-	friend ostream& operator <<(ostream&, const MyBag<T, Y>&);
+	friend ostream& operator<< (ostream& out , const MyBag<value_vector, value>& obj) {
+		for (int i = 0; i < obj.get_Size(); ++i)
+			out << "\n\t[" << i << "] - " << *obj.get_Value(i);
+		return out;
+	}
+
+
+
 };
