@@ -177,15 +177,19 @@ void option2()
 
 	} while (true);
 }
-
 void option3()
 {
+	MyBag<double, size_t> bag3;
+	int numberCourse = 0;
+	string fileName = "";
+	fstream inputFile;
+
 	do
 	{
 		cout << "\n\t2> Courses using MyBags of integers, strings, doubles, and chars";
 		cout << "\n\t" << string(100, char(205));
-		cout << "\n\t\t1> Specify the number of courses";
-		cout << "\n\t\t2> Read in data file and insert into courses";
+		cout << "\n\t\t1> Specify the number of courses";	      //TODO
+		cout << "\n\t\t2> Read in data file and insert into courses"; //TODO
 		cout << "\n\t\t3> Search for a student record from a course";
 		cout << "\n\t\t4> Remove a student record from a course";
 		cout << "\n\t\t5> Display course(s)";
@@ -196,11 +200,69 @@ void option3()
 		switch (inputInteger("\n\t\tOption: ", 0, 5))
 		{
 		case 0: return;
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
+		case 1: {
+			numberCourse = inputInteger("\n\t1> Enter the number of courses: ", 1, true);
+			cout << "\n\t" << numberCourse << " Course(s) has been created.\n";
+		}break;
+		case 2: {
+
+			if (numberCourse <= 0)
+			{
+				cout << "\n\tERROR: number of courses has not been assigned.\n";
+				break;
+			}
+
+			for (int i = 0; i < numberCourse; i++)
+			{
+				fileName = inputString("\n\t2> Enter a data file name for course[0] (STOP - return): ", false);
+
+				inputFile.open(fileName);
+				if (inputFile.fail())
+				{
+					cout << "\n\tfile, " << fileName << ", cannot be found. Please re-specify.\n";
+					inputFile.close();
+					break;
+				}
+
+				/*while (!inputFile.eof())
+				{
+
+				}*/
+
+				cout << "\n\tData from file, " << fileName << ", has been read and stored into Courses[" << i << "].";
+			}
+			inputFile.close();
+		}break;
+		case 3: {
+			//ERROR: No data file has been read and stored into Courses.
+			cout << "\n\t\t3> Search by";
+			cout << "\n\t\t" << string(30, char(196));
+			cout << "\n\t\t\t1. ID Number";
+			cout << "\n\t\t\t2. Name";
+			cout << "\n\t\t\t0. return";
+			cout << "\n\t\t" << string(30, char(196));
+
+			switch (inputInteger("\n\t\t\tOption: ", 0, 2))
+			{
+			case 0: break;
+			case 1: {
+				cout << "\n\tEnter a student ID to search: ";
+			}break;
+			case 2: {
+				cout << "\n\tEnter a student name to search: ";
+			}break;
+			default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
+			}
+		}break;
+		case 4: {
+			//ERROR: No data file has been read and stored into Courses.
+
+
+		}break;
+		case 5: {
+			//ERROR: No data file has been read and stored into Courses.
+			
+		}break;
 		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
 		}
 		cout << "\n";
