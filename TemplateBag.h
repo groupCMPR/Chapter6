@@ -35,5 +35,6 @@ public:
 	typename vector<value_vector>::const_iterator get_Value(const value&) const;
 
 	//Friend
-	friend ostream& operator<< <value_vector, value> (ostream&, const MyBag<value_vector, value>& obj);
+	template <typename T, typename Y>
+	friend ostream& operator <<(ostream&, const MyBag<T, Y>&);
 };
