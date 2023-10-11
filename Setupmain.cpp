@@ -18,7 +18,7 @@
 #include "input.h" //For input validation
 #include "bagOfInts.h"
 #include "TemplateBag.h"
-#include "
+#include "Courses.h"
 using namespace std;
 
 
@@ -200,7 +200,7 @@ void option2()
 
 			//must use static cast so that inputInteger knows data type
 			double user_Index = inputInteger("\n\tEnter an index(subscript) from MyBag to be deleted: ", 0, static_cast<int>(bag2.get_Size() - 1));
-			cout << "\n\tValue " << *bag2.get_Value(user_Index) <<" has been deleted from MyBag";
+			cout << "\n\tValue " << *bag2.get_Value(user_Index) << " has been deleted from MyBag";
 			bag2.set_Remove(user_Index);
 
 		}break;
