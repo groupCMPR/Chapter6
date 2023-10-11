@@ -105,8 +105,8 @@ typename vector<value_vector>::const_iterator MyBag<value_vector, value>::get_Va
 
 //precondition : filled vector, outsream, class object
 //postcondition: returns outsream
-template <typename value_vector, typename value>
-ostream& operator<< (ostream& out, const MyBag<value_vector, value>& obj) {
+template <typename T, typename Y>
+ostream& operator<<(ostream& out, const MyBag<T,Y>& obj) {
 	for (int i = 0; i < obj.bag_size; ++i)
 		out << "\n\t[" << i << "] - " << obj.bag.at(i);
 
