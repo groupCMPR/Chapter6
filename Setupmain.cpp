@@ -1,6 +1,14 @@
 //Names: Alexis Martinez, Angie Campos, Neidy Malaga, & Vivian Huynh
+//Group 1: Alexis
+//Group 2: Neidy
+//Group 3: Angie and Vivian
+//Vivian organized the main.cpp base. Alexis helped with Group 2 corrections.
 //Date: 10/4/2023
 //Description: Chapter 6 Assignments: Software Development with Templates, Iterators, and the STL
+//We created a container using a dynamic array and templates. The template allows for us to use different data types into our functions.
+//We created the bag using a normal class and a template class. We then read into files and used both those classes
+//to store any valid data types.
+
 #include <iostream> //For cout
 #include <vector>   //For vector
 #include <fstream>  //For files
@@ -8,8 +16,9 @@
 
 //HEADER FILES
 #include "input.h" //For input validation
+#include "bagOfInts.h"
 #include "TemplateBag.h"
-#include "TemplateBag.cpp"
+#include "
 using namespace std;
 
 
@@ -18,7 +27,8 @@ int mainMenu();
 
 //Option 1 - Non-template MyBag of integers
 void option1();
-
+char caseOneMenu();
+void caseOne();
 //Option 2 - Template MyBag of doubles
 void option2();
 
@@ -63,36 +73,78 @@ int mainMenu()
 	return inputInteger("\n\t\tOption: ", 0, 3);
 }
 
+
+//PreCondition: None 
+//PostCondition: Displays a menu and returns a char
+char caseOneMenu() {
+	cout << "\n\t1> Non-template MyBag of integers";
+	cout << "\n\t" << string(100, char(205));
+	cout << "\n\t\tA> clear";
+	cout << "\n\t\tB> insert";
+	cout << "\n\t\tC> search";
+	cout << "\n\t\tD> remove";
+	cout << "\n\t\tE> sort";
+	cout << "\n\t\tF> display";
+	cout << "\n\t" << string(100, char(196));
+	cout << "\n\t\t0> return";
+	cout << "\n\t" << string(100, char(205));
+
+	return inputChar("\n\t\tOption: ", static_cast<string>("ABCDEF0"));
+}
+
 void option1()
 {
-	do
-	{
-		cout << "\n\t1> Non-template MyBag of integers";
-		cout << "\n\t" << string(100, char(205));
-		cout << "\n\t\tA> clear";
-		cout << "\n\t\tB> insert";
-		cout << "\n\t\tC> search";
-		cout << "\n\t\tD> remove";
-		cout << "\n\t\tE> sort";
-		cout << "\n\t\tF> display";
-		cout << "\n\t" << string(100, char(196));
-		cout << "\n\t\t0> return";
-		cout << "\n\t" << string(100, char(205));
+	bagOfInts myBag;
 
-		switch (inputChar("\n\t\tOption: ", static_cast<string>("0ABCDEF")))
-		{
-		case '0': return;
-		case 'A': break;
-		case 'B': break;
-		case 'C': break;
-		case 'D': break;
-		case 'E': break;
-		case 'F': break;
-		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
+	do {
+		system("cls");
+		switch (caseOneMenu()) {
+		case '0': return; break;
+		case 'A':
+			myBag.clear();
+			cout << "\n\t\tMyBag is cleared of all elements.";
+			break;
+		case 'B': {
+			int number = inputInteger("\n\t\tEnter a value and insert into MyBag: ");
+			myBag.insert(number);
+			cout << "\n\t\t" << number << " has been inserted into MyBag.";
+			break;
 		}
-		cout << "\n";
+		case 'C': {
+			if (myBag.empty()) {
+				cout << "\n\t\tMyBag is empty.";
+				break;
+			}
+			int value = inputInteger("\n\t\tEnter a value to search from MyBag: ");
+			myBag.search(value);
+			break;
+		}
+		case 'D': {
+			if (myBag.empty()) {
+				cout << "\n\t\tMyBag is empty.";
+				break;
+			}
+			int numToDelete = inputInteger("\n\t\tEnter an index(subscript) from MyBag to be deleted: ", 0, myBag.mySize() - 1);
+			myBag.remove(numToDelete);
+			break;
+		}
+		case 'E':
+			if (myBag.empty()) {
+				cout << "\n\t\tMyBag is empty.";
+				break;
+			}
+			myBag.mySort();
+			break;
+		case 'F':
+			if (myBag.empty()) {
+				cout << "\n\t\tMyBag is empty.";
+				break;
+			}
+			myBag.display();
+			break;
+		}
+		cout << "\n\n\t";
 		system("pause");
-
 	} while (true);
 }
 
@@ -126,7 +178,7 @@ void option2()
 			cout << "\n\t" << user_Value << " has been inserted into MyBag";
 		} break;
 		case 'C': {
-			if (bag2.get_Size() < 1) {
+			if (bag2.get_Empty()) {
 				cout << "\n\tMyBag is empty";
 				break;
 			}
@@ -141,7 +193,7 @@ void option2()
 				cout << "\n\tValue " << *bag2.get_Value(position) << " is found at subscript #" << position << " from MyBag";
 		} break;
 		case 'D': {
-			if (bag2.get_Size() < 1) {
+			if (bag2.get_Empty()) {
 				cout << "\n\tMyBag is empty";
 				break;
 			}
@@ -153,7 +205,7 @@ void option2()
 
 		}break;
 		case 'E': {
-			if (bag2.get_Size() < 1) {
+			if (bag2.get_Empty()) {
 				cout << "\n\tMyBag is empty";
 				break;
 			}
@@ -163,7 +215,7 @@ void option2()
 
 		} break;
 		case 'F': {
-			if (bag2.get_Size() < 1) {
+			if (bag2.get_Empty()) {
 				cout << "\n\tMyBag is empty";
 				break;
 			}
@@ -177,6 +229,7 @@ void option2()
 
 	} while (true);
 }
+
 void option3()
 {
 	MyBag<double, size_t> bag3;
@@ -261,7 +314,7 @@ void option3()
 		}break;
 		case 5: {
 			//ERROR: No data file has been read and stored into Courses.
-			
+
 		}break;
 		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
 		}
