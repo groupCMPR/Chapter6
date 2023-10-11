@@ -1,7 +1,11 @@
+//Name: Neidy Malaga
+//Date: 10/7/2023
+//Description: Header file for class MyBag in template 
+
 #pragma once
-#include <vector> //for vector
-#include <iostream> //for overloading <<
-#include <algorithm> //for find, search, sort
+#include <vector>    //For vector
+#include <iostream>  //For overloading <<
+#include <algorithm> //For find, search, sort
 using namespace std;
 
 template <typename value_vector, typename value>
@@ -24,14 +28,12 @@ public:
 	void set_Sort();
 	void set_Resize(const value&);
 
-	////Accessor
+	//Accessors
 	value get_Size();
 	value get_Capacity();
 	value get_Search(const value_vector&) const;
 	typename vector<value_vector>::const_iterator get_Value(const value&) const;
 
-	//friend
-	friend ostream& operator<<(ostream&, const MyBag<value_vector, value>& obj);
-
-
+	//Friend
+	friend ostream& operator<< <value_vector, value> (ostream&, const MyBag<value_vector, value>& obj);
 };
