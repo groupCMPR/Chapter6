@@ -9,7 +9,7 @@
 //HEADER FILES
 #include "input.h" //For input validation
 #include "TemplateBag.h"
-//#include "TemplateBag.cpp"
+#include "TemplateBag.cpp"
 using namespace std;
 
 
