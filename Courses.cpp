@@ -1,59 +1,94 @@
+//Name: Angie Campos & Vivian Huynh
+//Date: 10/11/2023
+//Description: cpp file for class Courses
+
 #include "Courses.h"
-Courses::Courses() : studentId(0), name("Unknown"), score(0.0), letterGrade('F')
+
+//Precondition : N/A
+//Postcondition: Initialize the private members
+Courses::Courses() : title(""), studentId(0), name("Unknown"), score(0.0), letterGrade('F')
 {}
 
-//ACCESSORS
+//==========================================================
+// Accessors Section
+//==========================================================
+//Precondition : N/A
+//Postcondition: Return private member title
+string Courses::getTitle() const
+{
+	return title;
+}
+//Precondition : N/A
+//Postcondition: Return private member studentID
 int Courses::getStudentId() const
 {
 	return studentId;
 }
+//Precondition : N/A
+//Postcondition: Return private member name
 string Courses::getName() const
 {
 	return name;
 }
+//Precondition : N/A
+//Postcondition: Return private member score
 double Courses::getScore() const
 {
 	return score;
 }
+//Precondition : N/A
+//Postcondition: Return private member letterGrade
 char Courses::getLetterGrade() const
 {
 	return letterGrade;
 }
 
-//MUTATORS
+//==========================================================
+// Mutators Section
+//==========================================================
+//Precondition : Passing in a string
+//Postcondition: Private member title is changed
+void Courses::setTitle(string newTitle)
+{
+	title = newTitle;
+}
+//Precondition : Passing in int in student ID format
+//Postcondition: Private member studentID is changed
 void Courses::setStudentId(int newStudentId)
 {
 	studentId = newStudentId;
 }
+//Precondition : Passing in a string
+//Postcondition: Private member name is changed
 void Courses::setName(string newName)
 {
 	name = newName;
 }
+//Precondition : Passing in positive double values between 0.0...100.0
+//Postcondition: Private member score and letterGrade is changed
 void Courses::setScore(double newScore)
 {
-	score = newScore;
-}
-void Courses::setLetterGrade(char newLetterGrade)
-{
-	if (score > 89)
+	char newLetter;
+	if (newScore > 89)
 	{
-		newLetterGrade = 'A';
+		newLetter = 'A';
 	}
-	else if (score > 79)
+	else if (newScore > 79)
 	{
-		newLetterGrade = 'B';
+		newLetter = 'B';
 	}
-	else if (score > 69)
+	else if (newScore > 69)
 	{
-		newLetterGrade = 'C';
+		newLetter = 'C';
 	}
-	else if (score > 59)
+	else if (newScore > 59)
 	{
-		newLetterGrade = 'D';
+		newLetter = 'D';
 	}
 	else
 	{
-		newLetterGrade = 'F';
+		newLetter = 'F';
 	}
-	letterGrade = newLetterGrade;
+	score = newScore;
+	letterGrade = newLetter;
 }
