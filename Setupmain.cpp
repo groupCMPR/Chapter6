@@ -232,8 +232,9 @@ void option2()
 
 void option3()
 {
-	MyBag<double, size_t> bag3;
+	MyBag<Courses, size_t> bag3;
 	int numberCourse = 0;
+	Courses *studentRecord = NULL;
 	string fileName = "";
 	fstream inputFile;
 
@@ -241,7 +242,7 @@ void option3()
 	{
 		cout << "\n\t2> Courses using MyBags of integers, strings, doubles, and chars";
 		cout << "\n\t" << string(100, char(205));
-		cout << "\n\t\t1> Specify the number of courses";	      //TODO
+		cout << "\n\t\t1> Specify the number of courses";	          //TODO
 		cout << "\n\t\t2> Read in data file and insert into courses"; //TODO
 		cout << "\n\t\t3> Search for a student record from a course";
 		cout << "\n\t\t4> Remove a student record from a course";
@@ -252,10 +253,11 @@ void option3()
 
 		switch (inputInteger("\n\t\tOption: ", 0, 5))
 		{
-		case 0: return;
+		case 0: delete[] studentRecord; return;
 		case 1: {
 			numberCourse = inputInteger("\n\t1> Enter the number of courses: ", 1, true);
 			cout << "\n\t" << numberCourse << " Course(s) has been created.\n";
+			studentRecord = new Courses[numberCourse];
 		}break;
 		case 2: {
 
@@ -267,27 +269,71 @@ void option3()
 
 			for (int i = 0; i < numberCourse; i++)
 			{
-				fileName = inputString("\n\t2> Enter a data file name for course[0] (STOP - return): ", false);
+				fileName = inputString("\n\t2> Enter a data file name for course[" + to_string(i) + "] (STOP - return) : ", false);
+
+				if (fileName == "STOP" || fileName == "stop")
+				{
+					return;
+				}
 
 				inputFile.open(fileName);
-				if (inputFile.fail())
+
+				while (inputFile.fail())
 				{
 					cout << "\n\tfile, " << fileName << ", cannot be found. Please re-specify.\n";
 					inputFile.close();
-					break;
+					fileName = inputString("\n\t2> Enter a data file name for course[" + to_string(i) + "] (STOP - return) : ", false);
+					if (fileName == "STOP" || fileName == "stop")
+					{
+						return;
+					}
+					inputFile.open(fileName);
 				}
 
-				/*while (!inputFile.eof())
+				string line = "";
+				string title = "";
+				int count = 0;
+				int temp = 0;
+				const int SIZE = 3; //contains the 3 elements in file
+				string tokenize[SIZE];
+
+				while (getline(inputFile, line))
 				{
+					if (temp == 0)
+					{
+						studentRecord->setTitle(line);
+						temp++;
+						continue;
+					}
 
-				}*/
+					istringstream stream(line);
+					for (int i = 0; i < SIZE; i++)
+					{
+						getline(stream, tokenize[i], ','); //TODO
+					}
 
-				cout << "\n\tData from file, " << fileName << ", has been read and stored into Courses[" << i << "].";
+					studentRecord[count].setStudentId(stod(tokenize[0]));
+					studentRecord[count].setName(tokenize[1]);
+					studentRecord[count].setScore(stod(tokenize[2]));
+					count++;
+				}
+				
+				bag3.set_Insert(*studentRecord);
+
+				cout << "\n\tData from file, " << fileName << ", has been read and stored into Courses[" << i << "].\n";
+				fileName = "";
+
+				inputFile.close();
 			}
-			inputFile.close();
+			
 		}break;
 		case 3: {
-			//ERROR: No data file has been read and stored into Courses.
+			if (inputFile.fail())
+			{
+				cout << "\n\tERROR: No data file has been read and stored into Courses.\n";
+				break;
+			}
+
 			cout << "\n\t\t3> Search by";
 			cout << "\n\t\t" << string(30, char(196));
 			cout << "\n\t\t\t1. ID Number";
