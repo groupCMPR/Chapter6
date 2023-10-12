@@ -1,4 +1,4 @@
-//Names: Alexis Martinez, Angie Campos, Neidy Malaga, & Vivian Huynh
+///Names: Alexis Martinez, Angie Campos, Neidy Malaga, & Vivian Huynh
 //Group 1: Alexis
 //Group 2: Neidy
 //Group 3: Angie and Vivian
@@ -8,17 +8,18 @@
 //We created a container using a dynamic array and templates. The template allows for us to use different data types into our functions.
 //We created the bag using a normal class and a template class. We then read into files and used both those classes
 //to store any valid data types.
-
 #include <iostream> //For cout
 #include <vector>   //For vector
 #include <fstream>  //For files
-#include <iomanip> //for setprecision
+#include <sstream>  //For tokenizing
+#include <iomanip>  //For setprecision
 
 //HEADER FILES
 #include "input.h" //For input validation
-#include "bagOfInts.h"
-#include "TemplateBag.h"
-#include "Courses.h"
+#include "bagOfInts.h"     //Option 1
+#include "TemplateBag.h"   //Option 2
+#include "TemplateBag.cpp"
+#include "Courses.h"       //Option 3
 using namespace std;
 
 
@@ -27,8 +28,7 @@ int mainMenu();
 
 //Option 1 - Non-template MyBag of integers
 void option1();
-char caseOneMenu();
-void caseOne();
+
 //Option 2 - Template MyBag of doubles
 void option2();
 
@@ -73,78 +73,36 @@ int mainMenu()
 	return inputInteger("\n\t\tOption: ", 0, 3);
 }
 
-
-//PreCondition: None 
-//PostCondition: Displays a menu and returns a char
-char caseOneMenu() {
-	cout << "\n\t1> Non-template MyBag of integers";
-	cout << "\n\t" << string(100, char(205));
-	cout << "\n\t\tA> clear";
-	cout << "\n\t\tB> insert";
-	cout << "\n\t\tC> search";
-	cout << "\n\t\tD> remove";
-	cout << "\n\t\tE> sort";
-	cout << "\n\t\tF> display";
-	cout << "\n\t" << string(100, char(196));
-	cout << "\n\t\t0> return";
-	cout << "\n\t" << string(100, char(205));
-
-	return inputChar("\n\t\tOption: ", static_cast<string>("ABCDEF0"));
-}
-
 void option1()
 {
-	bagOfInts myBag;
+	do
+	{
+		cout << "\n\t1> Non-template MyBag of integers";
+		cout << "\n\t" << string(100, char(205));
+		cout << "\n\t\tA> clear";
+		cout << "\n\t\tB> insert";
+		cout << "\n\t\tC> search";
+		cout << "\n\t\tD> remove";
+		cout << "\n\t\tE> sort";
+		cout << "\n\t\tF> display";
+		cout << "\n\t" << string(100, char(196));
+		cout << "\n\t\t0> return";
+		cout << "\n\t" << string(100, char(205));
 
-	do {
-		system("cls");
-		switch (caseOneMenu()) {
-		case '0': return; break;
-		case 'A':
-			myBag.clear();
-			cout << "\n\t\tMyBag is cleared of all elements.";
-			break;
-		case 'B': {
-			int number = inputInteger("\n\t\tEnter a value and insert into MyBag: ");
-			myBag.insert(number);
-			cout << "\n\t\t" << number << " has been inserted into MyBag.";
-			break;
+		switch (inputChar("\n\t\tOption: ", static_cast<string>("0ABCDEF")))
+		{
+		case '0': return;
+		case 'A': break;
+		case 'B': break;
+		case 'C': break;
+		case 'D': break;
+		case 'E': break;
+		case 'F': break;
+		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
 		}
-		case 'C': {
-			if (myBag.empty()) {
-				cout << "\n\t\tMyBag is empty.";
-				break;
-			}
-			int value = inputInteger("\n\t\tEnter a value to search from MyBag: ");
-			myBag.search(value);
-			break;
-		}
-		case 'D': {
-			if (myBag.empty()) {
-				cout << "\n\t\tMyBag is empty.";
-				break;
-			}
-			int numToDelete = inputInteger("\n\t\tEnter an index(subscript) from MyBag to be deleted: ", 0, myBag.mySize() - 1);
-			myBag.remove(numToDelete);
-			break;
-		}
-		case 'E':
-			if (myBag.empty()) {
-				cout << "\n\t\tMyBag is empty.";
-				break;
-			}
-			myBag.mySort();
-			break;
-		case 'F':
-			if (myBag.empty()) {
-				cout << "\n\t\tMyBag is empty.";
-				break;
-			}
-			myBag.display();
-			break;
-		}
-		cout << "\n\n\t";
+		cout << "\n";
 		system("pause");
+
 	} while (true);
 }
 
@@ -234,7 +192,7 @@ void option3()
 {
 	MyBag<Courses, size_t> bag3;
 	int numberCourse = 0;
-	Courses *studentRecord = NULL;
+	Courses* studentRecord = NULL;
 	string fileName = "";
 	fstream inputFile;
 
@@ -312,12 +270,12 @@ void option3()
 						getline(stream, tokenize[i], ','); //TODO
 					}
 
-					studentRecord[count].setStudentId(stod(tokenize[0]));
+					studentRecord[count].setStudentId(stoi(tokenize[0]));
 					studentRecord[count].setName(tokenize[1]);
 					studentRecord[count].setScore(stod(tokenize[2]));
 					count++;
 				}
-				
+
 				bag3.set_Insert(*studentRecord);
 
 				cout << "\n\tData from file, " << fileName << ", has been read and stored into Courses[" << i << "].\n";
@@ -325,7 +283,7 @@ void option3()
 
 				inputFile.close();
 			}
-			
+
 		}break;
 		case 3: {
 			if (inputFile.fail())
@@ -354,13 +312,67 @@ void option3()
 			}
 		}break;
 		case 4: {
-			//ERROR: No data file has been read and stored into Courses.
+			if (inputFile.fail())
+			{
+				cout << "\n\tERROR: No data file has been read and stored into Courses.\n";
+				break;
+			}
 
+
+			//menu based on the courses selected 
+			while (true) {
+				cout << "4> Course(s) " << endl;
+				cout << "\n\t" << string(100, char(205));
+
+				for (int i = 0; i < numberCourse; i++)
+				{
+					cout << i + 1 << ": " << studentRecord[numberCourse].getTitle();
+				}
+				cout << "\n\t" << string(100, char(205));
+			}
+			//---------------------
+			// how to search and remove here 
+			int userSearchandRemove = inputInteger("\n\tEnter a student ID to search and delete:", 1, 99999);
+
+			cout << "\n\tStudent ID "; *bag3.get_Value(userSearchandRemove); " has been deleted from MyBag";
+			bag3.set_Remove(userSearchandRemove);
 
 		}break;
 		case 5: {
-			//ERROR: No data file has been read and stored into Courses.
+			if (inputFile.fail())
+			{
+				cout << "\n\tERROR: No data file has been read and stored into Courses.\n";
+				break;
+			}
+			// menu of course selected 
+			while (true) {
+				cout << "Course(s)" << endl;
+				cout << "\n\t" << string(100, char(205));
 
+				for (int i = 0; i < numberCourse; i++)
+				{
+					cout << i + 1 << ": " << studentRecord[numberCourse].getTitle();
+
+				}
+				cout << "3 : All\n";
+				cout << "\n\t" << string(100, char(205));
+
+			}
+
+			// --- 
+			//here display 
+			cout << studentRecord->getTitle() << endl;
+
+			cout << "index\tStudentID\tName\t\tScore\tGrade" << endl;
+
+			for (int i = 0; i < numberCourse; i++)
+			{
+				cout << setw(6) << numberCourse << i << "\t";
+				cout << setw(10) << studentRecord[i].getStudentId() << "\t";
+				cout << setw(10) << studentRecord[i].getName() << "\t";
+				cout << setw(10) << studentRecord[i].getScore() << "\t";
+				cout << setw(10) << studentRecord[i].getLetterGrade() << "\t";
+			}
 		}break;
 		default: cout << "\t\tERROR: - Invalid option. Please re-enter"; break;
 		}
